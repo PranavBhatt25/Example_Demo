@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">BankSoftware</string>
+    <string name="app_name_space">Bank Software</string>
+    <string name="year_display">2017</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="dont_have_an_account">Don\'t have an account?</string>
+    <string name="forgetpassword">Forgot Password?</string>
+    <string name="signin">Sign In</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="add_remarks">Add Remarks</string>
+    <string name="enter_remarks">Enter Remarks</string>
+    <string name="cancel_remarks_btn">Cancel</string>
+    <string name="add_remarks_btn">Add</string>
+
+    <string name="permission_necessary">Permission necessary</string>
+    <string name="storage_permission_is_encessary_to_wrote_event">STORAGE permission is necessary to write event!!!</string>
+    <string name="please_check_internet">Please Check Internet Connection</string>
+
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_pw">Please enter password</string>
+
+    <string-array name="menu_names">
+        <item>DASHBOARD</item>
+        <item>CASES</item>
+        <item>ABOUT US</item>
+        <item>CONTACT US</item>
+        <item>LOGOUT</item>
+    </string-array>
+
+    <array name="nav_drawer_icons">
+        <item>@mipmap/ic_dashboard</item>
+        <item>@mipmap/ic_cases</item>
+        <item>@mipmap/ic_about_us</item>
+        <item>@mipmap/ic_contact</item>
+        <item>@mipmap/ic_logout</item>
+
+    </array>
+
+</resources>
