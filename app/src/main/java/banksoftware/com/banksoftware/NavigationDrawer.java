@@ -21,7 +21,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import fragment.DashBoardFragment;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class NavigationDrawer extends SlidingActivity {

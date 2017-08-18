@@ -7,7 +7,8 @@ public class ServiceApi {
 
     public static final class URL {
 
-        public static final String BASE_URL = "http://webplanex.co.in/projects/bank_software/public/api";
+         public static final String BASE_URL = "http://webplanex.co.in/projects/bank_software/public/api";
+      //  public static final String BASE_URL = "http://intarchservices.in/api";
 
 
         public static final String LOGIN_URL = BASE_URL + "/login";
@@ -66,6 +67,8 @@ public class ServiceApi {
         public static String CASE_ID = "case_id";
         public static String STATUS = "status";
         public static String REMARKS = "remarks";
+        public static String APPOINTMENT_DATE = "appointment_date";
+        public static String VISIT_DONE_DATE = "visit_done_date";
 
     }
 }

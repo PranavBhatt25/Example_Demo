@@ -46,9 +46,12 @@ import util.ConnectionDetector;
 import util.Constant;
 import util.ServiceApi;
 
+import static banksoftware.com.banksoftware.CaseListFilteredActivity.isVisitedDetailsFromFilter;
+import static fragment.CasesFragment.isVisitedDetails;
+
 
 /**
- * Created by Pranav & Sarfaraj on 25/06/16.
+ * Created by Pranav on 25/06/16.
  */
 public class StatusListActivity extends Activity implements View.OnClickListener {
 
@@ -67,7 +70,7 @@ public class StatusListActivity extends Activity implements View.OnClickListener
     PullRefreshLayout pullRefreshLayout, pullRefreshLayoutAnother;
     TextView tv_record_found = null;
     LinearLayout ll_main_fragment;
-    String case_id = "";
+    String case_id = "", mStatus = "";
 
 
     @Override
@@ -80,7 +83,9 @@ public class StatusListActivity extends Activity implements View.OnClickListener
         mConnectionDetector = new ConnectionDetector(context);
         setContentView(R.layout.activity_edit_case);
 
-        case_id = getIntent().getStringExtra("case_id");
+        //case_id = getIntent().getStringExtra("case_id");
+        case_id = getIntent().getStringExtra("caseId");
+        mStatus = getIntent().getStringExtra("mStatus");
         init();
         onClickListener();
     }
@@ -103,6 +108,8 @@ public class StatusListActivity extends Activity implements View.OnClickListener
             typeSemibold = Typeface.createFromAsset(getAssets(), "opensans_semibold.ttf");
             typeSemiboldItalic = Typeface.createFromAsset(getAssets(), "opensans_semibolditalic.ttf");
 
+            isVisitedDetailsFromFilter = true;
+            isVisitedDetails = true;
 
             iv_toolbar_left = (ImageView) findViewById(R.id.iv_toolbar_left);
             iv_toolbar_left.setImageResource(R.mipmap.ic_back);
@@ -280,7 +287,7 @@ public class StatusListActivity extends Activity implements View.OnClickListener
                             }
 
                             rvNewsList.setVisibility(View.VISIBLE);
-                            statusListAdapter = new StatusListAdapter(rvNewsList, context, StatusArrayList, case_id, StatusListActivity.this);
+                            statusListAdapter = new StatusListAdapter(rvNewsList, context, StatusArrayList, case_id,mStatus, StatusListActivity.this);
                             rvNewsList.setAdapter(statusListAdapter);
                             statusListAdapter.notifyDataSetChanged();
                         }

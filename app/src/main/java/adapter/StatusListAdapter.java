@@ -1,12 +1,15 @@
 package adapter;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -31,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
@@ -54,7 +60,7 @@ import util.ServiceApi;
 import static banksoftware.com.banksoftware.CasesDetailsActivity.isVisitedDetailsDetail;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
@@ -76,11 +82,23 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
     StatusListActivity statusListActivity;
     String case_id = "", StatusName = "";
 
+    String date_time = "";
+    int mYear;
+    int mMonth;
+    int mDay;
+
+    int mHour;
+    int mMinute;
+    EditText et_show_date_time;
+    String mAppointmentDate = "";
+    String mVisitDoneDate = "", mStatus = "";
+
     public StatusListAdapter(RecyclerView recyclerView, Context context, ArrayList<StatusListClass>
-            casesArrayList, String case_id, StatusListActivity statusListActivity) {
+            casesArrayList, String case_id, String mStatus, StatusListActivity statusListActivity) {
         this.context = context;
         this.casesArrayList = casesArrayList;
         this.case_id = case_id;
+        this.mStatus = mStatus;
         this.statusListActivity = statusListActivity;
         inflater = LayoutInflater.from(this.context);
         mConnectionDetector = new ConnectionDetector(context);
@@ -118,12 +136,27 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
 
         mViewHolder.tv_status_name.setText(mStatusName);
         mViewHolder.tv_status_name.setTypeface(typeSemibold);
+
+        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/fontawesome.ttf");
+        mViewHolder.tv_selected_status.setTypeface(typeface);
+        if (mStatus.equals(mStatusName)) {
+            mViewHolder.tv_selected_status.setVisibility(View.VISIBLE);
+        } else {
+            mViewHolder.tv_selected_status.setVisibility(View.GONE);
+        }
+
+
         mViewHolder.ll_cases_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StatusName = statusListClass.getStatusName();
-                addremarksDialog();
-
+                if (StatusName.equals("APPOINTMENT TAKEN")) {
+                    addremarksDialog("APPOINTMENT TAKEN");
+                } else if (StatusName.equals("SITE VISITED")) {
+                    addremarksDialog("SITE VISITED");
+                } else {
+                    addremarksDialog("");
+                }
             }
         });
     }
@@ -165,14 +198,34 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
         }
     }
 
-    public void addremarksDialog() {
-
+    public void addremarksDialog(String StatusSelected) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_add_remarks);
 
         try {
             TextView tv_dialog_title_main = (TextView) dialog.findViewById(R.id.tv_dialog_title_main);
+            et_show_date_time = (EditText) dialog.findViewById(R.id.et_show_date_time);
+            et_show_date_time.setFocusable(false);
+            et_show_date_time.setClickable(true);
+            if (StatusSelected.equals("APPOINTMENT TAKEN")) {
+                et_show_date_time.setVisibility(View.VISIBLE);
+                et_show_date_time.setHint("Enter Appointment Date");
+            } else if (StatusSelected.equals("SITE VISITED")) {
+                et_show_date_time.setVisibility(View.VISIBLE);
+                et_show_date_time.setHint("Enter Visit Done Date");
+            } else {
+                et_show_date_time.setVisibility(View.GONE);
+            }
+
+            et_show_date_time.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    datePicker();
+
+                }
+            });
 
             final EditText et_dialog_add_remarks = (EditText) dialog.findViewById(R.id.et_dialog_add_remarks);
             et_dialog_add_remarks.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
@@ -205,11 +258,29 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
                 @Override
                 public void onClick(View view) {
                     String mRemarks = et_dialog_add_remarks.getText().toString();
-                    if (mConnectionDetector.isConnectingToInternet()) {
-                        callSelectedStatusAPI(1, StatusName, mRemarks);
-                    } else {
-                        Toast.makeText(context, context.getString(R.string.please_check_internet), Toast.LENGTH_SHORT).show();
+
+                    if (!StatusName.equals("null") && !StatusName.equals("")) {
+                        if (StatusName.equals("APPOINTMENT TAKEN") || StatusName.equals("SITE VISITED")) {
+                            String DateTime = et_show_date_time.getText().toString();
+                            if (StatusName.equals("APPOINTMENT TAKEN")) {
+                                mAppointmentDate = DateTime;
+                                mVisitDoneDate = "";
+                            } else {
+                                mAppointmentDate = "";
+                                mVisitDoneDate = DateTime;
+                            }
+
+                        } else {
+                            mAppointmentDate = "";
+                            mVisitDoneDate = "";
+                        }
+                        if (mConnectionDetector.isConnectingToInternet()) {
+                            callSelectedStatusAPI(1, StatusName, mRemarks);
+                        } else {
+                            Toast.makeText(context, context.getString(R.string.please_check_internet), Toast.LENGTH_SHORT).show();
+                        }
                     }
+
                     dialog.dismiss();
                 }
             });
@@ -218,6 +289,47 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
         }
     }
 
+    private void datePicker() {
+
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                date_time = String.format("%02d", dayOfMonth) + "/" + String.format("%02d", (monthOfYear + 1)) + "/" + year;
+                //*************Call Time Picker Here ********************
+                if (view.isShown()) {
+                    tiemPicker();
+                }
+            }
+        }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
+    private void tiemPicker() {
+        // Get Current Time
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+
+        // Launch Time Picker Dialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                mHour = hourOfDay;
+                mMinute = minute;
+
+                et_show_date_time.setText(date_time + " " + String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+            }
+        }, mHour, mMinute, true);
+        timePickerDialog.show();
+    }
 
     private void callSelectedStatusAPI(int isFirstLoad, String StatusName, String Remarks) {
 
@@ -231,6 +343,8 @@ public class StatusListAdapter extends RecyclerView.Adapter<StatusViewHolder> {
         params.put(ServiceApi.WEB_SERVICE_KEY.STATUS, StatusName);
         params.put(ServiceApi.WEB_SERVICE_KEY.CASE_ID, case_id);
         params.put(ServiceApi.WEB_SERVICE_KEY.REMARKS, Remarks);
+        params.put(ServiceApi.WEB_SERVICE_KEY.APPOINTMENT_DATE, mAppointmentDate);
+        params.put(ServiceApi.WEB_SERVICE_KEY.VISIT_DONE_DATE, mVisitDoneDate);
 
         String strValue = "";
         SortedSet<String> keys = new TreeSet<String>(params.keySet());

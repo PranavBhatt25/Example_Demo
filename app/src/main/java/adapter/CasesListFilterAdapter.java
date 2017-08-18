@@ -15,8 +15,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
-import banksoftware.com.banksoftware.CasesDetailsActivity;
 import banksoftware.com.banksoftware.R;
+import banksoftware.com.banksoftware.StatusListActivity;
 import holders.CasesViewHolder;
 import interfaces.OnLoadMoreListener;
 import model.CasesListClass;
@@ -25,7 +25,7 @@ import util.ConnectionDetector;
 import static util.Common.openDialer;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class CasesListFilterAdapter extends RecyclerView.Adapter<CasesViewHolder> {
@@ -89,13 +89,18 @@ public class CasesListFilterAdapter extends RecyclerView.Adapter<CasesViewHolder
         final String mRefNo = currentListData.getRefNo();
         final String mAddress = currentListData.getAddress();
         final String mApplicantName = currentListData.getApplicantName();
+        final String mStatus = currentListData.getStatus();
+
+
 
         mViewHolder.tv_ref.setText(mRefNo);
         mViewHolder.tv_name.setText(mApplicantName);
         mViewHolder.tv_contact_number.setText(mContactNo);
         mViewHolder.tv_bank.setText(mBank);
         mViewHolder.tv_address.setText(mAddress);
+        mViewHolder.tv_ststus.setText(mStatus);
 
+        mViewHolder.tv_ststus_title.setTypeface(typeSemibold);
         mViewHolder.tv_ref_no_title.setTypeface(typeSemibold);
         mViewHolder.tv_ref.setTypeface(typeFaceRegular);
         mViewHolder.tv_name_no_title.setTypeface(typeSemibold);
@@ -106,8 +111,9 @@ public class CasesListFilterAdapter extends RecyclerView.Adapter<CasesViewHolder
         mViewHolder.ll_cases_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, CasesDetailsActivity.class);
+                Intent i = new Intent(context, StatusListActivity.class);
                 i.putExtra("caseId", mID);
+                i.putExtra("mStatus", mStatus);
                 context.startActivity(i);
             }
         });

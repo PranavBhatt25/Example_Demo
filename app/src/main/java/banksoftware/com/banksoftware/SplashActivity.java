@@ -35,7 +35,7 @@ import static android.Manifest.permission.WRITE_CONTACTS;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
- * Created by Pranav & Sarfaraj on 07/02/17.
+ * Created by Pranav on 07/02/17.
  */
 public class SplashActivity extends Activity {
 
@@ -86,7 +86,8 @@ public class SplashActivity extends Activity {
             openActivity();
         } else {
             if (checkPermission()) {
-                requestPermissionAndContinue();
+               // requestPermissionAndContinue();
+                openActivity();
             } else {
                 openActivity();
             }

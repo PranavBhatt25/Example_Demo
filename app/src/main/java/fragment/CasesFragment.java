@@ -45,8 +45,10 @@ import util.ConnectionDetector;
 import util.Constant;
 import util.ServiceApi;
 
+import static fragment.DashBoardFragment.isVisitedCaseList;
+
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class CasesFragment extends Fragment implements View.OnClickListener {
@@ -115,6 +117,7 @@ public class CasesFragment extends Fragment implements View.OnClickListener {
         pullRefreshLayout = (PullRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
         pullRefreshLayoutAnother = (PullRefreshLayout) rootview.findViewById(R.id.pullRefreshLayoutAnother);
         isVisitedDetails = false;
+        isVisitedCaseList = true;
 
         if (mConnectionDetector.isConnectingToInternet()) {
             CasesArrayList = new ArrayList<>();
@@ -278,6 +281,7 @@ public class CasesFragment extends Fragment implements View.OnClickListener {
                                 String mContactNo = responseUserFindFriends.getString(Constant.JSON_KEY.CONTACT_NUMBER);
                                 String mBank = responseUserFindFriends.getString(Constant.JSON_KEY.BANK);
                                 String mRefNo = responseUserFindFriends.getString(Constant.JSON_KEY.REFERENCE_NO);
+                                String mstatus = responseUserFindFriends.getString(Constant.JSON_KEY.STATUS);
                                 String mAddress = responseUserFindFriends.getString(Constant.JSON_KEY.ADDRESS);
                                 String mApplicantName = responseUserFindFriends.getString(Constant.JSON_KEY.APPLICANT_NAME);
 
@@ -288,6 +292,7 @@ public class CasesFragment extends Fragment implements View.OnClickListener {
                                 casesListClass.setRefNo(mRefNo);
                                 casesListClass.setAddress(mAddress);
                                 casesListClass.setApplicantName(mApplicantName);
+                                casesListClass.setStatus(mstatus);
                                 CasesArrayList.add(casesListClass);
                             }
 

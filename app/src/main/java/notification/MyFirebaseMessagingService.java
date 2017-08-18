@@ -18,7 +18,7 @@ import banksoftware.com.banksoftware.SplashActivity;
 
 
 /**
- * Created by wpa1 on 4/1/17.
+ * Created by Pranav on 4/1/17.
  */
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -38,13 +38,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         mContext = getApplicationContext();
 
-        Log.e(TAG, "From: " + remoteMessage.getFrom());
-        Log.e(TAG, "Notification Message getMessageId: " + remoteMessage.getMessageId());
+        // Log.e(TAG, "From: " + remoteMessage.getFrom());
+        // Log.e(TAG, "Notification Message getMessageId: " + remoteMessage.getMessageId());
         Log.e(TAG, "Notification Message getMessage: " + remoteMessage.getData().get("message"));
-        Log.e(TAG, "Notification Message getAction: " + remoteMessage.getData().get("action"));
-        Log.e(TAG, "Notification Message ImageURL: " + remoteMessage.getData().get("imageUrl"));
-        Log.e(TAG, "Notification Message from: " + remoteMessage.getData().get("from"));
-        Log.e(TAG, "Notification Message google.message_id " + remoteMessage.getData().get("google.message_id"));
+        // Log.e(TAG, "Notification Message getAction: " + remoteMessage.getData().get("action"));
+        //  Log.e(TAG, "Notification Message ImageURL: " + remoteMessage.getData().get("imageUrl"));
+        //  Log.e(TAG, "Notification Message from: " + remoteMessage.getData().get("from"));
+        //  Log.e(TAG, "Notification Message google.message_id " + remoteMessage.getData().get("google.message_id"));
         //  Log.e(TAG, "Message data payload: " + remoteMessage.getNotification().getBody());
 
         // String msgaa = remoteMessage.getNotification().getBody();

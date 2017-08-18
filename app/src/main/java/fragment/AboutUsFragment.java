@@ -21,7 +21,7 @@ import banksoftware.com.banksoftware.R;
 import util.ConnectionDetector;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class AboutUsFragment extends Fragment implements View.OnClickListener {
@@ -75,7 +75,8 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
         wv_app_common = (WebView) rootview.findViewById(R.id.wv_app_common);
         progressBar = (ProgressBar) rootview.findViewById(R.id.progressBar);
 
-        webView("http://webplanex.co.in/projects/bank_software/public/");
+        //webView("http://webplanex.co.in/projects/bank_software/public/");
+        webView("file:///android_asset/AboutUs.html");
     }
 
     private void onClickListener() {

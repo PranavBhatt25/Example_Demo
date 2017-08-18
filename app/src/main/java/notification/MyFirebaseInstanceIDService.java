@@ -9,7 +9,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import util.AppPreference;
 
 /**
- * Created by wpa1 on 4/1/17.
+ * Created by Pranav on 4/1/17.
  */
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {

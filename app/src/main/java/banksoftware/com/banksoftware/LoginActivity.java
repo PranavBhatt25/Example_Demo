@@ -42,7 +42,7 @@ import static util.Common.showToast;
 
 
 /**
- * Created by Pranav & Sarfaraj on 25/06/16.
+ * Created by Pranav on 25/06/16.
  */
 public class LoginActivity extends Activity implements View.OnClickListener {
 
@@ -67,7 +67,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mConnectionDetector = new ConnectionDetector(context);
         setContentView(R.layout.activity_login);
 
-        getDeviceId();
+        //getDeviceId();
         init();
         onClickListener();
     }

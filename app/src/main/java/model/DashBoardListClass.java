@@ -1,14 +1,25 @@
 package model;
 
 /**
- * Created by wpa6 on 29/8/16.
+ * Created by Pranav on 29/8/16.
  */
 
 public class DashBoardListClass {
 
 
     String Status = "";
+    String Lable = "";
     String CaseCount = "";
+
+    public String getLable() {
+        return Lable;
+    }
+
+    public void setLable(String lable) {
+        Lable = lable;
+    }
+
+
 
     public String getStatus() {
         return Status;

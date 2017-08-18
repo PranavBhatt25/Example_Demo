@@ -10,7 +10,7 @@ import banksoftware.com.banksoftware.R;
 
 
 /**
- * Created by wpa5 on 9/1/17.
+ * Created by Pranav on 9/1/17.
  */
 
 public class DashBoardViewHolder extends RecyclerView.ViewHolder {

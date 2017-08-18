@@ -49,6 +49,7 @@ import util.ConnectionDetector;
 import util.Constant;
 import util.ServiceApi;
 
+import static fragment.DashBoardFragment.isVisitedCaseList;
 import static util.Common.showToast;
 
 
@@ -304,6 +305,7 @@ public class CaseListFilteredActivity extends Activity implements View.OnClickLi
                                 String mRefNo = responseUserFindFriends.getString(Constant.JSON_KEY.REFERENCE_NO);
                                 String mAddress = responseUserFindFriends.getString(Constant.JSON_KEY.ADDRESS);
                                 String mApplicantName = responseUserFindFriends.getString(Constant.JSON_KEY.APPLICANT_NAME);
+                                String mStatus = responseUserFindFriends.getString(Constant.JSON_KEY.STATUS);
 
                                 CasesListClass casesListClass = new CasesListClass();
                                 casesListClass.setId(mID);
@@ -312,6 +314,7 @@ public class CaseListFilteredActivity extends Activity implements View.OnClickLi
                                 casesListClass.setRefNo(mRefNo);
                                 casesListClass.setAddress(mAddress);
                                 casesListClass.setApplicantName(mApplicantName);
+                                casesListClass.setStatus(mStatus);
                                 CasesArrayList.add(casesListClass);
                             }
 
@@ -415,6 +418,7 @@ public class CaseListFilteredActivity extends Activity implements View.OnClickLi
         super.onResume();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         if (isVisitedDetailsFromFilter) {
+            isVisitedCaseList = true;
             if (mConnectionDetector.isConnectingToInternet()) {
                 CasesArrayList = new ArrayList<>();
                 page = 1;

@@ -45,7 +45,7 @@ import static util.Common.openDialer;
 
 
 /**
- * Created by Pranav & Sarfaraj on 25/06/16.
+ * Created by Pranav on 25/06/16.
  */
 public class CasesDetailsActivity extends Activity implements View.OnClickListener {
 
@@ -73,7 +73,9 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
             tv_mobile_title = null, tv_mobile = null, tv_pin_code_title = null, tv_pin_code = null, tv_file_no_title = null,
             tv_file_no = null, tv_invoice_no_title = null, tv_invoice_no = null, tv_invoice_date_title = null, tv_invoice_date = null, tv_payment_title = null,
             tv_payment = null, tv_bank_fees_title = null, tv_bank_fees = null, tv_revision_fees_title = null, tv_revision_fees = null,
-            tv_market_value_title = null, tv_market_value = null;
+            tv_market_value_title = null, tv_market_value = null,
+            tv_appontment_date_title = null, tv_appontment_date = null,
+            tv_visit_done_date_title = null, tv_visit_done_date = null;
     public ArrayList<CasesListDetailsClass> CasesListDetailsArrayList = new ArrayList<>();
     String caseId = "";
     public static boolean isVisitedDetailsDetail = false;
@@ -237,6 +239,11 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
             tv_market_value_title = (TextView) findViewById(R.id.tv_market_value_title);
             tv_market_value = (TextView) findViewById(R.id.tv_market_value);
 
+            tv_appontment_date_title = (TextView) findViewById(R.id.tv_appontment_date_title);
+            tv_appontment_date = (TextView) findViewById(R.id.tv_appontment_date);
+
+            tv_visit_done_date_title = (TextView) findViewById(R.id.tv_visit_done_date_title);
+            tv_visit_done_date = (TextView) findViewById(R.id.tv_visit_done_date);
 
             if (mConnectionDetector.isConnectingToInternet()) {
                 CasesListDetailsArrayList = new ArrayList<>();
@@ -383,6 +390,8 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
                             String mStateName = responseCaseDetails.getString(Constant.JSON_KEY.STATE_NAME);
                             String mDistrictName = responseCaseDetails.getString(Constant.JSON_KEY.DISTRICT_NAME);
                             String mRevisionFees = responseCaseDetails.getString(Constant.JSON_KEY.REVISION_FEES);
+                            String mAppointmentDate = responseCaseDetails.getString(Constant.JSON_KEY.APPOINTMENT_DATE);
+                            String mVisitDoneDate = responseCaseDetails.getString(Constant.JSON_KEY.VISIT_DONE_DATE);
 
 
                             tv_status_no_title.setTypeface(typeSemibold);
@@ -451,6 +460,11 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
                             tv_revision_fees.setTypeface(typeFaceRegular);
                             tv_market_value_title.setTypeface(typeSemibold);
                             tv_market_value.setTypeface(typeFaceRegular);
+
+                            tv_appontment_date_title.setTypeface(typeSemibold);
+                            tv_appontment_date.setTypeface(typeFaceRegular);
+                            tv_visit_done_date_title.setTypeface(typeSemibold);
+                            tv_visit_done_date.setTypeface(typeFaceRegular);
 
 
                             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -649,6 +663,17 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
                                 }
 
 
+                                if (!mAppointmentDate.equals("null") && !mAppointmentDate.equals("")) {
+                                    tv_appontment_date.setText(Html.fromHtml(mAppointmentDate, Html.FROM_HTML_MODE_LEGACY));
+                                } else {
+                                    tv_appontment_date.setText("-");
+                                }
+                                if (!mVisitDoneDate.equals("null") && !mVisitDoneDate.equals("")) {
+                                    tv_visit_done_date.setText(Html.fromHtml(mVisitDoneDate, Html.FROM_HTML_MODE_LEGACY));
+                                } else {
+                                    tv_visit_done_date.setText("-");
+                                }
+
                             } else {
 
                                 if (!mRefNo.equals("null") && !mRefNo.equals("")) {
@@ -844,6 +869,17 @@ public class CasesDetailsActivity extends Activity implements View.OnClickListen
                                     tv_hub.setText("-");
                                 }
 
+                                if (!mAppointmentDate.equals("null") && !mAppointmentDate.equals("")) {
+                                    tv_appontment_date.setText(Html.fromHtml(mAppointmentDate));
+                                } else {
+                                    tv_appontment_date.setText("-");
+                                }
+
+                                if (!mVisitDoneDate.equals("null") && !mVisitDoneDate.equals("")) {
+                                    tv_visit_done_date.setText(Html.fromHtml(mVisitDoneDate));
+                                } else {
+                                    tv_visit_done_date.setText("-");
+                                }
                             }
 
 

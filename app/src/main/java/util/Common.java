@@ -80,7 +80,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * Created by Pranav & Sarfaraj on 25/06/16.
+ * Created by Pranav on 25/06/16.
  */
 public class Common {
     // OPEN A DIALER

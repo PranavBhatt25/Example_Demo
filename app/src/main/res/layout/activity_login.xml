@@ -32,8 +32,9 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@mipmap/ic_app_logo_building"
-                    android:gravity="center" />
+                    android:background="@mipmap/ic_launcher"
+                    android:gravity="center"
+                    android:id="@+id/imageView" />
             </LinearLayout>
 
 

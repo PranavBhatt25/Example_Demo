@@ -25,7 +25,7 @@ import model.DashBoardListClass;
 import util.ConnectionDetector;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created Pranav on 4/22/2017.
  */
 
 public class DashBoardListAdapter extends RecyclerView.Adapter<DashBoardViewHolder> {
@@ -77,14 +77,15 @@ public class DashBoardListAdapter extends RecyclerView.Adapter<DashBoardViewHold
     }
 
     @Override
-    public void onBindViewHolder(DashBoardViewHolder mViewHolder, final int position) {
+    public void onBindViewHolder(final DashBoardViewHolder mViewHolder, final int position) {
         final int pos = position;
         final DashBoardListClass currentListData = dashBoardArrayList.get(position);
 
         final String mStatus = currentListData.getStatus();
+        final String mLable = currentListData.getLable();
         final String mCaseCount = currentListData.getCaseCount();
 
-        mViewHolder.tv_casename.setText(mStatus);
+        mViewHolder.tv_casename.setText(mLable);
         mViewHolder.tv_casename.setTypeface(typeSemibold);
 
         mViewHolder.tv_case_count.setText("( " + mCaseCount + " )");
@@ -93,6 +94,14 @@ public class DashBoardListAdapter extends RecyclerView.Adapter<DashBoardViewHold
         mViewHolder.rl_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if (!mLable.equals("CHECKLIST PENDING")) {
+//                    mViewHolder.rl_favorite.setEnabled(true);
+//                    Intent i = new Intent(context, CaseListFilteredActivity.class);
+//                    i.putExtra("STATUS", mStatus);
+//                    context.startActivity(i);
+//                } else {
+//                    mViewHolder.rl_favorite.setEnabled(false);
+//                }
                 Intent i = new Intent(context, CaseListFilteredActivity.class);
                 i.putExtra("STATUS", mStatus);
                 context.startActivity(i);

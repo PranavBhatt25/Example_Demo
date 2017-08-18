@@ -3,7 +3,7 @@ package model;
 import util.Constant;
 
 /**
- * Created by wpa6 on 29/8/16.
+ * Created by Pranav on 29/8/16.
  */
 
 public class CasesListClass {
@@ -14,6 +14,17 @@ public class CasesListClass {
     String RefNo = "";
     String Address = "";
     String ApplicantName = "";
+    String Status = "";
+
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
 
     public String getAddress() {
         return Address;

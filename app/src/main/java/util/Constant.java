@@ -2,7 +2,7 @@ package util;
 
 
 /**
- * Created by Pranav & Sarfaraj on 25/06/16.
+ * Created by Pranav on 25/06/16.
  */
 public class Constant {
     public static String API_KEY = "C4EWLKJFLDKJFDLKE8WHWPHOSIR";
@@ -124,6 +124,9 @@ public class Constant {
         public static String REVISION_FEES = "revision_fees";
         public static String HUB_NAME = "hub_name";
         public static String STATUS_ALLOWED = "status_allowed";
+        public static String APPOINTMENT_DATE = "appointment_date";
+        public static String VISIT_DONE_DATE = "visit_done_date";
+        public static String LABLE = "label";
 
 
     }

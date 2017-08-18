@@ -44,7 +44,7 @@ import util.Constant;
 import util.ServiceApi;
 
 /**
- * Created by WPA2 on 4/22/2017.
+ * Created by Pranav on 4/22/2017.
  */
 
 public class DashBoardFragment extends Fragment implements View.OnClickListener {
@@ -64,6 +64,7 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
     PullRefreshLayout pullRefreshLayout, pullRefreshLayoutAnother;
     TextView tv_record_found = null;
     LinearLayout ll_main_fragment;
+    public static boolean isVisitedCaseList = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
         tv_record_found = (TextView) rootview.findViewById(R.id.tv_record_found);
         tv_record_found.setVisibility(View.GONE);
         tv_record_found.setTypeface(typeFaceRegular);
+        isVisitedCaseList = false;
 
 
         pullRefreshLayout = (PullRefreshLayout) rootview.findViewById(R.id.swipeRefreshLayout);
@@ -132,7 +134,7 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
                         if (mConnectionDetector.isConnectingToInternet()) {
                             DashBoardArrayList = new ArrayList<>();
                             callGetDashBoardDetailsAPI(1);
-                           //setData();
+                            //setData();
                         } else {
                             Toast.makeText(context, getString(R.string.please_check_internet), Toast.LENGTH_SHORT).show();
                         }
@@ -152,7 +154,7 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
                         if (mConnectionDetector.isConnectingToInternet()) {
                             DashBoardArrayList = new ArrayList<>();
                             callGetDashBoardDetailsAPI(1);
-                           // setData();
+                            // setData();
                         } else {
                             Toast.makeText(context, getString(R.string.please_check_internet), Toast.LENGTH_SHORT).show();
                         }
@@ -270,10 +272,12 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
                                 JSONObject responseUserFindFriends = responseArray.getJSONObject(i);
 
                                 String mStatus = responseUserFindFriends.getString(Constant.JSON_KEY.STATUS);
+                                String mLable = responseUserFindFriends.getString(Constant.JSON_KEY.LABLE);
                                 String mCaseCount = responseUserFindFriends.getString(Constant.JSON_KEY.COUNT);
 
                                 DashBoardListClass dashBoardListClass = new DashBoardListClass();
                                 dashBoardListClass.setStatus(mStatus);
+                                dashBoardListClass.setLable(mLable);
                                 dashBoardListClass.setCaseCount(mCaseCount);
                                 DashBoardArrayList.add(dashBoardListClass);
                             }
@@ -356,5 +360,19 @@ public class DashBoardFragment extends Fragment implements View.OnClickListener 
         dashBoardListAdapter = new DashBoardListAdapter(rvNewsList, context, DashBoardArrayList, mActivity);
         rvNewsList.setAdapter(dashBoardListAdapter);
         dashBoardListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        if (isVisitedCaseList) {
+            if (mConnectionDetector.isConnectingToInternet()) {
+                DashBoardArrayList = new ArrayList<>();
+                callGetDashBoardDetailsAPI(0);
+            } else {
+                Toast.makeText(context, getString(R.string.please_check_internet), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

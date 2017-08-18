@@ -52,6 +52,24 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/et_show_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:drawableRight="@mipmap/date_time"
+                android:ems="10"
+                android:hint="Select Appointment Date"
+                android:inputType="textCapWords|textMultiLine|textImeMultiLine|textCapSentences"
+                android:maxLength="255"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+
+            <EditText
                 android:id="@+id/et_dialog_add_remarks"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"

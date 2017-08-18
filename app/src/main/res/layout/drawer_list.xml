@@ -50,7 +50,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/ic_app_logo_building"
+                android:background="@mipmap/ic_launcher"
                 android:gravity="center" />
         </LinearLayout>
 

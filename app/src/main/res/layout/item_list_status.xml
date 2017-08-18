@@ -12,18 +12,31 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_status_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".4"
+            android:layout_weight=".9"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:text="Status Name"
             android:textColor="@color/black"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_selected_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight=".1"
+            android:text="@string/fa_check"
+            android:textColor="@color/app_color"
+            android:textSize="18dp" />
+
+
     </LinearLayout>
 
     <View
